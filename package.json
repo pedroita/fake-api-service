@@ -1,0 +1,29 @@
+{
+  "name": "fake-api-service",
+  "version": "1.0.0",
+  "description": "Fake API service with AES-256-GCM encryption",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "docs": "swagger-jsdoc -o docs/swagger.yaml src/**/*.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
+    "express": "^4.21.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "keywords": [
+    "fake-api",
+    "aes",
+    "encryption",
+    "mock"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}
