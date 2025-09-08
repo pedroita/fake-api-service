@@ -4,7 +4,7 @@ const cors = require('cors');
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 const path = require('path');
-const fs = require('fs'); // 👈 ADICIONE ESTA LINHA
+const fs = require('fs'); 
 
 const { port } = require('./config/environment');
 const fakeRoutes = require('./routes/fakeRoutes');
