@@ -1,42 +1,34 @@
-const fs = require('fs');
-const path = require('path');
-const encryptionService = require('../services/encryptionService');
-
-const contactsPath = path.join(__dirname, '..', '..', 'database', 'contacts.json');
+const fs = require("fs");
+const path = require("path");
+const { encryptAES256GCM } = require("../services/encryptionService");
+const { contactsPath } = require("../config/environment");
 
 class FakeController {
-  async getEncryptedData(req, res, next) {
+  getEncryptedUsers(req, res) {
     try {
-      const users = JSON.parse(fs.readFileSync(contactsPath, 'utf8'));
-      const encryptedPayload = encryptionService.encryptAES256GCM(JSON.stringify(users));
-      
-      res.json({ 
-        success: true, 
-        data: { encrypted: encryptedPayload } 
-      });
+      const users = JSON.parse(fs.readFileSync(path.resolve(contactsPath), "utf8"));
+      const payload = encryptAES256GCM(JSON.stringify(users));
+      res.json({ success: true, data: { encrypted: payload } });
     } catch (err) {
-      next(err);
+      res.status(500).json({
+        success: false,
+        message: "Erro ao ler o arquivo JSON",
+        error: err.message,
+      });
     }
   }
 
-  async clearData(req, res, next) {
+  clearUsers(req, res) {
     try {
-      fs.writeFileSync(contactsPath, JSON.stringify([]));
-      res.json({ 
-        success: true, 
-        message: "Tabela users limpa com sucesso" 
-      });
+      fs.writeFileSync(path.resolve(contactsPath), JSON.stringify([]));
+      res.json({ success: true, message: "Tabela users limpa" });
     } catch (err) {
-      next(err);
+      res.status(500).json({
+        success: false,
+        message: "Erro ao limpar o arquivo JSON",
+        error: err.message,
+      });
     }
-  }
-
-  healthCheck(req, res) {
-    res.json({ 
-      status: 'healthy', 
-      timestamp: new Date().toISOString(),
-      service: 'Fake API Service'
-    });
   }
 }
 
