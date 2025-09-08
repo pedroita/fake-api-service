@@ -2,9 +2,7 @@ package-lock.json
 # Dependências
 node_modules/
 
-# Variáveis de ambiente
-.env
-.env.*
+
 
 # Logs
 *.log
